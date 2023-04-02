@@ -1,0 +1,171 @@
+@use "./variables";
+
+//does text formatting
+@mixin formatText($fw, $fs, $lh) {
+  font-weight: $fw;
+  font-size: $fs;
+  line-height: $lh;
+  font-style: normal;
+  text-align: center;
+
+}
+//sets display to grid
+@mixin grid {
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  @content;
+}
+
+@mixin flex($direction: row) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: center;
+  align-items: center;
+  @content;
+}
+/****************icons**********************************************/
+@mixin icons-flush($flex-direction, $column-gap) {
+  padding-top: 3px;
+  @include flex;
+  justify-content: $flex-direction;
+  column-gap: $column-gap;
+  & > * {
+    width: -moz-fit-content;
+    width: fit-content;
+
+
+    transition: all 0.2s ease;
+
+    &:nth-child(4) {
+      font-size: 2rem;
+     
+
+      &:hover {
+        color: variables.$facebook-hover;
+        transition: all 0.2s ease;
+      }
+    }
+    &:nth-child(2) {
+      &:hover {
+        color: variables.$twitter-hover;
+        transition: all 0.2s ease;
+      }
+    }
+    &:nth-child(3) {
+      &:hover {
+        color: variables.$instagram-hover;
+        transition: all 0.2s ease;
+      }
+    }
+    &:nth-child(5) {
+      &:hover {
+        color: variables.$youtube-hover;
+        transition: all 0.2s ease;
+      }
+    }
+    &:nth-child(1) {
+      &:hover {
+        color: variables.$linkedin-hover;
+        transition: all 0.2s ease;
+      }
+    }
+  }
+}
+//sets width and height
+@mixin size($width, $height: $width) {
+  width: $width;
+  height: $height;
+}
+
+/***********************buttons******************/
+
+/******************footer items init*****/
+@mixin footer-item-init($pdt, $bgcolor, $flex-direction: row, $flex-jposition: center, $pdb: $pdt) {
+  width: 80%;
+  padding-top: $pdt;
+  padding-bottom: $pdb;
+  background-color: $bgcolor;
+  @include flex($flex-direction) {
+    justify-content: $flex-jposition;
+  }
+}
+
+/******************************Home mixins******************************/
+@mixin customgrid($r, $c, $rowsize, $columnsize: $rowsize) {
+  @include grid;
+  grid-template-rows: repeat($r, $rowsize);
+  grid-template-columns: repeat($c, $columnsize);
+ 
+}
+
+//positions elements in a 2d grid system
+@mixin position($row, $column:$row) {
+  grid-row: #{$row};
+  grid-column: #{$column};
+}
+
+
+//backdrop
+@mixin blurbackdrop($color: white, $opacity: 0.3,$effect: blur,$intensity: 10px){
+  // -webkit-backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: $effect($intensity);
+  backdrop-filter: #{$effect}($intensity);
+  // backdrop-filter: blur(10px);
+background-color: rgba($color,$opacity);
+
+}
+
+//nested elements styling (3)
+
+@mixin signatures($mobile: none, $tablet: none, $desktop: none) {
+  &:nth-of-type(1) {
+    display: $mobile;
+  }
+  &:nth-of-type(2) {
+    display: $tablet;
+  }
+  &:nth-of-type(3) {
+    display: $desktop;
+  }
+}
+
+//controlling the display of 3 successive elements via media query
+@mixin defaultSignature{
+  @include signatures(block);
+
+  @media screen and (480px < width <= 960px) {
+    @include signatures($tablet: block);
+  }
+  @media screen and (width > 960px) {
+    @include signatures($desktop: block);
+  }
+}
+
+    //positioning absolutely positioned elements
+    @mixin positioning($dir_value, $top, $direction: left) {
+      top: $top;
+      #{$direction}: $dir_value;
+    }
+
+    //custom styled main heading
+    @mixin headingStyle($len:65%,$lenlarge:50%){
+        span { 
+          //redesigning heading underline
+          &::after {
+            @include size(65%, 5px);
+            @include size($len, 5px);
+            top: 100%;
+            left: calc((100% - 65%) / 2);
+            left: calc((100% - $len) / 2);
+            @media screen and (width > 960px) {
+              @include size(50%, 5px);
+              @include size($lenlarge, 5px);
+              top: 125%;
+              left: calc((100% - 50%) / 2);
+              left: calc((100% - $lenlarge) / 2);
+            }
+          }
+        }
+      }
+    
