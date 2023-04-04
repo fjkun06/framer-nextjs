@@ -71,7 +71,7 @@ export default function Home() {
       <AnimatePresence>{visible && <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 2 }} />}</AnimatePresence>
       <AnimatePresence>{visible && <motion.div initial={initial} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 2 }} />}</AnimatePresence>
       <motion.div layout style={{ height: isOpen ? "100px" : "500px" }} onClick={() => setOpen(!isOpen)} />
-      <motion.div drag="y" dragElastic={0.2} dragMomentum={true} dragSnapToOrigin={false} dragConstraints={{ left: 0, right: 300, bottom: 100 }} whileDrag={{ scale: 2 }} >
+      <motion.div drag dragPropagation  dragConstraints={{ left: 0, right: 300, bottom: 100,top:300 }}>
         <span>hello</span>
         <span>hello</span>
         <span>hello</span>

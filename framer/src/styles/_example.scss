@@ -7,6 +7,8 @@ main {
   div {
     @include mixins.size(10rem);
     background: #000;
+    @include mixins.flex(column);
+    gap: 1rem;
   }
   button {
     @include mixins.size(15rem, 5rem);
@@ -15,12 +17,14 @@ main {
     background-color: red;
   }
 
-  ul{
-    background:green;
-    li{
-      background-color: orange;
+  ul,ol {
+    // background: green;
+    li {
+      // background-color: orange;
     }
   }
 
-  span{color: white;}
+  span {
+    color: white;
+  }
 }
