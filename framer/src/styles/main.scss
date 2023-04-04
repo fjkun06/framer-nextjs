@@ -1,2 +1,29 @@
-@use 'variables';
-@use 'mixins';
+@use "variables";
+@use "mixins";
+@use "example";
+
+//all components
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+//Configuring html
+html {
+  // font-size: 0.82vw;
+  font-size: 62.5%;
+  // font-size: calc(15px + 0.390625vw);
+  // font-size: calc(12px + 1vw);
+
+  overflow-x: hidden;
+  -webkit-scroll-behavior: smooth;
+  scroll-behavior: smooth;
+
+  // min-width: 320px;
+}
+
+body {
+  font-size: 1.6em;
+  min-width: 32rem;
+}

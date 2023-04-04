@@ -1,0 +1,26 @@
+@use "mixins";
+main {
+  @include mixins.flex(column);
+  @include mixins.size(100vw, 100vh);
+  overflow-y: scroll;
+  gap: 3rem;
+  div {
+    @include mixins.size(10rem);
+    background: #000;
+  }
+  button {
+    @include mixins.size(15rem, 5rem);
+    min-width: 15rem;
+    min-height: 5rem;
+    background-color: red;
+  }
+
+  ul{
+    background:green;
+    li{
+      background-color: orange;
+    }
+  }
+
+  span{color: white;}
+}
