@@ -1,7 +1,11 @@
 "use client";
-import { RefObject, createRef, forwardRef, useRef } from "react";
+import React, { RefObject, createRef, forwardRef, useRef } from "react";
 import { motion, useScroll } from "framer-motion";
-
+type Text = HTMLDivElement;
+interface ChildProps {
+  // Other props...
+  ref: React.Ref<HTMLElement>;
+}
 export function App1() {
   // export default function App1() {
   const ref = useRef(null);
@@ -33,14 +37,24 @@ type Props = {
   // props for your component
 };
 
-type Ref = React.RefObject<HTMLDivElement>;
+type Ref = React.Ref<HTMLDivElement>;
 
-const Item = ({ reff }: { reff: React.RefObject<HTMLDivElement> }) => {
+const Item = forwardRef<HTMLElement, ChildProps>((props, ref) => {
   const ref2 = useRef<HTMLDivElement>(null);
+  // const reff = ref as Ref;
+  const reff = ref as React.RefObject<HTMLDivElement>;
+  // React.useEffect(() => {
+  //   if (reff.current) {
+  //     // The ref is now hydrated and can be used
+  //     console.log(reff.current.offsetWidth);
+  //   }
+  // }, [reff]);
+
   const { scrollYProgress } = useScroll({
     target: ref2,
     container: reff,
     offset: ["100% end", "start 0"],
+    layoutEffect: false,
     // offset: ["end end", "start start"]
   });
 
@@ -56,7 +70,7 @@ const Item = ({ reff }: { reff: React.RefObject<HTMLDivElement> }) => {
     </div>
     // </section>
   );
-};
+});
 Item.displayName = "Item";
 // export default Item;
 
@@ -64,17 +78,25 @@ interface MyComponentProps {
   myRef: React.RefObject<HTMLDivElement>;
 }
 const App: React.FC<MyComponentProps> = ({}) => {
-  const refC: React.RefObject<HTMLDivElement> = useRef(null);
+  const refC = useRef<HTMLDivElement>(null);
+  // const refC: React.RefObject<Text> = useRef(null);
+  // React.useEffect(() => {
+  //   if (refC.current) {
+  //     // The ref is now hydrated and can be used
+  //     console.log(refC.current.offsetWidth);
+  //   }
+  // }, [refC]);
 
   return (
     <section id="tre" ref={refC}>
-      <Item reff={refC} />
-      <Item reff={refC} />
-      <Item reff={refC} />
-      <Item reff={refC} />
-      <Item reff={refC} />
-      <Item reff={refC} />
-      <Item reff={refC} />
+      <Item ref={refC} />
+      <Item ref={refC} />
+      <Item ref={refC} />
+      <Item ref={refC} />
+      <Item ref={refC} />
+      <Item ref={refC} />
+      <Item ref={refC} />
+      <Item ref={refC} />
     </section>
   );
 };
