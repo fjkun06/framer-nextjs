@@ -1,50 +1,34 @@
-"use client"
-import { useScroll } from 'framer-motion';
-import { useRef } from 'react';
+"use client";
+import { useScroll, motion } from "framer-motion";
+import React from "react";
 
-function App() {
-  const ref = useRef(null);
-
-  const { scrollYProgress } = useScroll(
-    { 
-      target: ref, 
-      offset: [0, 0.5, 0.9] 
-    }
-  );
+export default function Page() {
+  // export default function App1() {
+  const ref = React.useRef(null);
+  const { scrollXProgress } = useScroll({ container: ref });
+  React.useEffect(() => {
+    console.log(scrollXProgress,scrollXProgress.get(),"");
+  }, [scrollXProgress]);
 
   return (
-    <div className="App">
-      <div className="content" ref={ref}>
-        <h1>Scroll down to see animations!</h1>
-      </div>
-      <div 
-        className="box" 
-        style={{ 
-          transform: `translateX(${ 100 * scrollYProgress}px)` 
-        }}
-      >
-        <h2>Animated Box</h2>
-      </div>
-      <div 
-        className="second-box" 
-        style={{ 
-          opacity: scrollYProgress, 
-          transform: `translateY(${ -200 * scrollYProgress}px)` 
-        }}
-      >
-        <h2>Second Animated Box</h2>
-      </div>
-      <div 
-        className="third-box" 
-        style={{ 
-          opacity: scrollYProgress, 
-          transform: `translateX(${ -100 * scrollYProgress}px)` 
-        }}
-      >
-        <h2>Third Animated Box</h2>
-      </div>
-    </div>
+    <>
+      <svg id="progress" width="100" height="100" viewBox="0 0 100 100">
+        <circle cx="50" cy="50" r="30" pathLength="1" className="bg" />
+        <motion.circle cx="50" cy="50" r="30" pathLength="1" className="indicator" style={{ pathLength: scrollXProgress }} />
+      </svg>
+      <ul ref={ref}>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+      </ul>
+    </>
   );
 }
-
-export default App;

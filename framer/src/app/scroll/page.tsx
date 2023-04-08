@@ -1,61 +1,44 @@
 "use client";
 import React, { RefObject, createRef, forwardRef, useRef } from "react";
 import { motion, useScroll } from "framer-motion";
-type Text = HTMLDivElement;
 interface ChildProps {
-  // Other props...
+/**
+ * @type {React.Ref<HTMLElement>}
+//  * @type {string | boolean}
+ */
   ref: React.Ref<HTMLElement>;
 }
-export function App1() {
-  // export default function App1() {
-  const ref = useRef(null);
-  const { scrollXProgress } = useScroll({ container: ref });
 
-  return (
-    <>
-      <svg id="progress" width="100" height="100" viewBox="0 0 100 100">
-        <circle cx="50" cy="50" r="30" pathLength="1" className="bg" />
-        <motion.circle cx="50" cy="50" r="30" pathLength="1" className="indicator" style={{ pathLength: scrollXProgress }} />
-      </svg>
-      <ul ref={ref}>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-      </ul>
-    </>
-  );
+/**
+ * @type {React.Ref<HTMLElement>}
+ */
+let sb: React.Ref<HTMLElement>;
+
+/**
+ * Adds two numbers and returns the result.
+ * @author Ian Awesome <i.am.awesome@example.com>
+ * @param {number} num1 - The first number to add.
+ * @param {number} num2 - The second number to add.
+ * @returns {number} The result of adding the two numbers.
+ */
+function addNumbers(num1:number, num2:number): number {
+  return num1 + num2;
 }
-type Props = {
-  // props for your component
-};
 
-type Ref = React.Ref<HTMLDivElement>;
+// type Box<T> = { t: T }
+// /** @see google.com for implementation details */
+// type Boxify<T> = { [K in keyof T]: Box<T> };
+
 
 const Item = forwardRef<HTMLElement, ChildProps>((props, ref) => {
   const ref2 = useRef<HTMLDivElement>(null);
-  // const reff = ref as Ref;
   const reff = ref as React.RefObject<HTMLDivElement>;
-  // React.useEffect(() => {
-  //   if (reff.current) {
-  //     // The ref is now hydrated and can be used
-  //     console.log(reff.current.offsetWidth);
-  //   }
-  // }, [reff]);
 
   const { scrollYProgress } = useScroll({
     target: ref2,
     container: reff,
     offset: ["100% end", "start 0"],
     layoutEffect: false,
-    // offset: ["end end", "start start"]
   });
 
   return (
@@ -72,32 +55,43 @@ const Item = forwardRef<HTMLElement, ChildProps>((props, ref) => {
   );
 });
 Item.displayName = "Item";
-// export default Item;
 
 interface MyComponentProps {
   myRef: React.RefObject<HTMLDivElement>;
 }
 const App: React.FC<MyComponentProps> = ({}) => {
   const refC = useRef<HTMLDivElement>(null);
-  // const refC: React.RefObject<Text> = useRef(null);
-  // React.useEffect(() => {
-  //   if (refC.current) {
-  //     // The ref is now hydrated and can be used
-  //     console.log(refC.current.offsetWidth);
-  //   }
-  // }, [refC]);
-
+  const { scrollYProgress } = useScroll({ container: refC });
   return (
-    <section id="tre" ref={refC}>
-      <Item ref={refC} />
-      <Item ref={refC} />
-      <Item ref={refC} />
-      <Item ref={refC} />
-      <Item ref={refC} />
-      <Item ref={refC} />
-      <Item ref={refC} />
-      <Item ref={refC} />
-    </section>
+    <>
+      <svg id="progress" width="100" height="100" viewBox="0 0 100 100">
+        <circle cx="50" cy="50" r="10" pathLength="1" className="bg" stroke="white" strokeOpacity="0.75" />
+        <motion.circle cx="50" cy="50" r="10" pathLength="1" stroke="green" style={{ pathLength: scrollYProgress }} />
+        <motion.rect x="50" y="50" height="10" width='0' pathLength="1" stroke="gold" style={{ width: scrollYProgress }} />
+        {/* <motion.rect x="50" y="50" height="10" width='0' pathLength="1" stroke="gold" style={{ transform: `scale(calc(100vw * ${scrollYProgress.get()}),1)` }} /> */}
+      </svg>
+      <section id="tr" ref={refC}>
+        {/* <Item ref={refC} />
+        <Item ref={refC} />
+        <Item ref={refC} />
+        <Item ref={refC} />
+        <Item ref={refC} />
+        <Item ref={refC} />
+        <Item ref={refC} />
+        <Item ref={refC} /> */}
+        <div>{addNumbers(1,2)}</div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </section>
+    </>
   );
 };
 export default App;
